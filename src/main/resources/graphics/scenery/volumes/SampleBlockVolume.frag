@@ -31,7 +31,7 @@ uniform vec3 blockScales[ NUM_BLOCK_SCALES ];
 uniform vec3 lutSize;
 uniform vec3 lutOffset;
 
-vec4 sampleVolume( vec4 wpos, sampler3D volumeCache, vec3 cacheSize, vec3 blockSize, vec3 paddedBlockSize, vec3 padOffset )
+vec4 sampleVolume( vec4 wpos )
 {
     bool cropping = slicingMode == 1 || slicingMode == 3;
     bool slicing = slicingMode == 2 || slicingMode == 3;
@@ -62,7 +62,7 @@ vec4 sampleVolume( vec4 wpos, sampler3D volumeCache, vec3 cacheSize, vec3 blockS
     vec3 q = floor( pos / blockSize ) - lutOffset + 0.5;
 
     uvec4 lutv = texture( lutSampler, q / lutSize );
-    vec3 B0 = lutv.xyz * paddedBlockSize + padOffset;
+    vec3 B0 = lutv.xyz * paddedBlockSize + cachePadOffset;
     vec3 sj = blockScales[ lutv.w ];
 
     vec3 c0 = B0 + mod( pos * sj, blockSize ) + 0.5 * sj;
