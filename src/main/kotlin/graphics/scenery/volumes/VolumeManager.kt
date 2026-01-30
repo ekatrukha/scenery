@@ -318,6 +318,11 @@ class VolumeManager(
         )
         segments[SegmentType.SampleMultiresolutionVolume] = SegmentTemplate(
             "SampleBlockVolume.frag",
+            "volumeCache",
+            "blockSize",
+            "paddedBlockSize",
+            "cachePadOffset",
+            "cacheSize",
             "im",
             "sourcemin",
             "sourcemax",

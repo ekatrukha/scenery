@@ -14,6 +14,16 @@ void intersectBoundingBox( vec4 wfront, vec4 wback, out float tnear, out float t
     intersectBox( mfront.xyz, (mback - mfront).xyz, sourcemin, sourcemax, tnear, tfar );
 }
 
+uniform sampler3D volumeCache;
+
+// -- comes from CacheSpec -----
+uniform vec3 blockSize;
+uniform vec3 paddedBlockSize;
+uniform vec3 cachePadOffset;
+
+// -- comes from TextureCache --
+uniform vec3 cacheSize; // TODO: get from texture!?
+
 uniform usampler3D lutSampler;
 uniform sampler2D transferFunction;
 uniform sampler2D colorMap;
