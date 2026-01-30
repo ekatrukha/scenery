@@ -241,8 +241,7 @@ class VolumeManager(
         logger.debug("Updating effective shader program to $progvol")
         recreateMaterial(context)
 
-        progvol?.setTextureCache(textureCache)
-        progvol?.use(context)
+            progvol?.use(context)
         progvol?.setUniforms(context)
 //        progvol?.bindSamplers(context)
 
@@ -271,7 +270,7 @@ class VolumeManager(
         }
 
         while (outOfCoreVolumes.size < n) {
-            outOfCoreVolumes.add(VolumeBlocks(textureCache))
+            outOfCoreVolumes.add(VolumeBlocks())
         }
 
         val signatures = renderStacksStates.map {
@@ -423,7 +422,6 @@ class VolumeManager(
             "InputZBuffer"
         )
 
-        newProgvol.setTextureCache(textureCache)
         newProgvol.setDepthTextureName("InputZBuffer")
         logger.debug("Using program for $outOfCoreVolumeCount out-of-core volumes and $regularVolumeCount regular volumes")
         prog.add(newProgvol)
@@ -485,7 +483,7 @@ class VolumeManager(
                 if (state.stack is MultiResolutionStack3D) {
                     val volume = outOfCoreVolumes[i]
 
-                    volume.init(state.stack, cam.width, vp)
+                    volume.init(state.stack, textureCache, cam.width, vp)
 
                     val tasks = volume.fillTasks
                     numTasks += tasks.size
